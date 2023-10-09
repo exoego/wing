@@ -1352,7 +1352,10 @@ impl<'s> Parser<'s> {
 			self.build_type_annotation(Some(rt), phase)?
 		} else {
 			let func_sig_kind = func_sig_node.kind();
-			if func_sig_kind == "inflight_closure" || func_sig_kind == "preflight_closure" {
+			if func_sig_kind == "inflight_closure"
+				|| func_sig_kind == "maybe_inflight_closure"
+				|| func_sig_kind == "preflight_closure"
+			{
 				TypeAnnotation {
 					kind: TypeAnnotationKind::Inferred,
 					span: Default::default(),
@@ -1936,6 +1939,10 @@ impl<'s> Parser<'s> {
 			"parenthesized_expression" => self.build_expression(&expression_node.named_child(0).unwrap(), phase),
 			"preflight_closure" => Ok(Expr::new(
 				ExprKind::FunctionClosure(self.build_anonymous_closure(&expression_node, phase)?),
+				expression_span,
+			)),
+			"maybe_inflight_closure" => Ok(Expr::new(
+				ExprKind::FunctionClosure(self.build_anonymous_closure(&expression_node, Phase::Independent)?),
 				expression_span,
 			)),
 			"inflight_closure" => Ok(Expr::new(

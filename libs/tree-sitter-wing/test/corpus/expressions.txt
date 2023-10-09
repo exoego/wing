@@ -212,6 +212,24 @@ preflight anonymous closure
             (reference_identifier)))))))
 
 ================================================================================
+maybe-inflight anonymous closure
+================================================================================
+
+?inflight (): num => { return 1; };
+
+--------------------------------------------------------------------------------
+
+(source
+  (expression_statement
+    (maybe_inflight_closure
+      (maybe_inflight_specifier)
+      (parameter_list)
+      (builtin_type)
+      (block
+        (return_statement
+          (number))))))
+
+================================================================================
 inflight anonymous closure
 ================================================================================
 

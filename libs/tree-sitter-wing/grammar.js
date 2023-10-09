@@ -96,6 +96,8 @@ module.exports = grammar({
 
     inflight_specifier: ($) => "inflight",
 
+    maybe_inflight_specifier: ($) => "?inflight",
+
     _statement: ($) =>
       choice(
         $.test_statement,
@@ -338,6 +340,7 @@ module.exports = grammar({
         $.reference,
         $.call,
         $.preflight_closure,
+        $.maybe_inflight_closure,
         $.inflight_closure,
         $.await_expression,
         $.defer_expression,
@@ -633,6 +636,15 @@ module.exports = grammar({
         "=>",
         field("block", $.block)
       ),
+
+    maybe_inflight_closure: ($) =>
+        seq(
+            $.maybe_inflight_specifier,
+            field("parameter_list", $.parameter_list),
+            optional($._return_type),
+            "=>",
+            field("block", $.block)
+        ),
 
     inflight_closure: ($) =>
       seq(

@@ -1981,13 +1981,13 @@ Duration <DURATION>"
 `;
 
 exports[`maybe_inflight.test.w 1`] = `
-"error: Inflight classes can not contain maybe-inflight methods
+"error: Inflight classes can not contain maybe-inflight methods which can be used in preflight phase
   --> ../../../examples/tests/invalid/maybe_inflight.test.w:7:3
   |  
 7 | /   pub static ?inflight format(key: str): str {
 8 | |     return \\"s3://foo/\${key}\\";
 9 | |   }
-  | \\\\---^ Inflight classes can not contain maybe-inflight methods
+  | \\\\---^ Inflight classes can not contain maybe-inflight methods which can be used in preflight phase
 
 
 error: Unexpected 'maybe_inflight_specifier'
@@ -2002,6 +2002,13 @@ error: Unexpected 'identifier'
   |
 2 |   ?inflight name: str;
   |             ^^^^ Unexpected 'identifier'
+
+
+error: Variable cannot be reassigned from inflight
+   --> ../../../examples/tests/invalid/maybe_inflight.test.w:21:5
+   |
+21 |     this.name = name;
+   |     ^^^^^^^^^ Variable cannot be reassigned from maybe-inflight
 
 
  

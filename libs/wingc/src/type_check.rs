@@ -3929,6 +3929,11 @@ impl<'a> TypeChecker<'a> {
 			});
 		} else if var_phase == Phase::Preflight && env.phase == Phase::Inflight {
 			self.spanned_error(variable, "Variable cannot be reassigned from inflight".to_string());
+		} else if var_phase == Phase::Preflight && env.phase == Phase::Independent {
+			self.spanned_error(
+				variable,
+				"Variable cannot be reassigned from maybe-inflight".to_string(),
+			);
 		}
 
 		if matches!(kind, AssignmentKind::AssignIncr | AssignmentKind::AssignDecr) {

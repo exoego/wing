@@ -9,3 +9,16 @@ inflight class Foo {
   }
 //^ Inflight classes can not contain maybe-inflight methods
 }
+
+class Bucket {
+  var name: str; // preflight mutable field
+
+  init() {
+    this.name = "foo";
+  }
+
+  ?inflight set_name(name: str): void {
+    this.name = name;
+//  ^^^^^^^^^ Variable cannot be reassigned from maybe-inflight
+  }
+}

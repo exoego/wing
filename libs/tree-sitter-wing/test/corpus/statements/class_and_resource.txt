@@ -10,6 +10,8 @@ inflight class A {
     static static_field: num;
     static var static_var_field: num;
     static static_method() {}
+    ?inflight do_something_2() {}
+    static ?inflight static_method_2() {}
 }
 
 --------------------------------------------------------------------------------
@@ -47,6 +49,17 @@ inflight class A {
         static: (static)
         name: (identifier)
         parameter_list: (parameter_list)
+        block: (block))
+      (maybe_inflight_method_definition
+        phase_modifier: (maybe_inflight_specifier)
+        name: (identifier)
+        parameter_list: (parameter_list)
+        block: (block))
+      (maybe_inflight_method_definition
+        static: (static)
+        phase_modifier: (maybe_inflight_specifier)
+        name: (identifier)
+        parameter_list: (parameter_list)
         block: (block)))))
 
 ================================================================================
@@ -78,6 +91,9 @@ class A {
     inflight inflight_func() {}
     pub inflight inflight_func2(): num {}
     protected inflight inflight_func3(): num {}
+    ?inflight maybe_inflight_func() {}
+    pub ?inflight maybe_inflight_func2(): num {}
+    protected ?inflight maybe_inflight_func3(): num {}
     pf_member: str;
     internal internal_member: str;
     inflight if_member: str;
@@ -85,6 +101,7 @@ class A {
     protected inflight var if_member3: str;
     static inflight inflight_field: num;
     static inflight inflight_method() {}
+    static ?inflight maybe_inflight_method() {}
 }
 
 --------------------------------------------------------------------------------
@@ -133,6 +150,25 @@ class A {
         parameter_list: (parameter_list)
         type: (builtin_type)
         block: (block))
+      (maybe_inflight_method_definition
+        phase_modifier: (maybe_inflight_specifier)
+        name: (identifier)
+        parameter_list: (parameter_list)
+        block: (block))
+      (maybe_inflight_method_definition
+        access_modifier: (access_modifier)
+        phase_modifier: (maybe_inflight_specifier)
+        name: (identifier)
+        parameter_list: (parameter_list)
+        type: (builtin_type)
+        block: (block))
+      (maybe_inflight_method_definition
+        access_modifier: (access_modifier)
+        phase_modifier: (maybe_inflight_specifier)
+        name: (identifier)
+        parameter_list: (parameter_list)
+        type: (builtin_type)
+        block: (block))
       (class_field
         name: (identifier)
         type: (builtin_type))
@@ -164,6 +200,12 @@ class A {
       (inflight_method_definition
         static: (static)
         phase_modifier: (inflight_specifier)
+        name: (identifier)
+        parameter_list: (parameter_list)
+        block: (block))
+      (maybe_inflight_method_definition
+        static: (static)
+        phase_modifier: (maybe_inflight_specifier)
         name: (identifier)
         parameter_list: (parameter_list)
         block: (block)))))

@@ -1980,6 +1980,37 @@ Test Files 1 failed (1)
 Duration <DURATION>"
 `;
 
+exports[`maybe_inflight.test.w 1`] = `
+"error: Inflight classes can not contain maybe-inflight methods
+  --> ../../../examples/tests/invalid/maybe_inflight.test.w:7:3
+  |  
+7 | /   pub static ?inflight format(key: str): str {
+8 | |     return \\"s3://foo/\${key}\\";
+9 | |   }
+  | \\\\---^ Inflight classes can not contain maybe-inflight methods
+
+
+error: Unexpected 'maybe_inflight_specifier'
+  --> ../../../examples/tests/invalid/maybe_inflight.test.w:2:3
+  |
+2 |   ?inflight name: str;
+  |   ^^^^^^^^^ Unexpected 'maybe_inflight_specifier'
+
+
+error: Unexpected 'identifier'
+  --> ../../../examples/tests/invalid/maybe_inflight.test.w:2:13
+  |
+2 |   ?inflight name: str;
+  |             ^^^^ Unexpected 'identifier'
+
+
+ 
+ 
+Tests 1 failed (1)
+Test Files 1 failed (1)
+Duration <DURATION>"
+`;
+
 exports[`missing_semicolon.test.w 1`] = `
 "error: Expected ';'
   --> ../../../examples/tests/invalid/missing_semicolon.test.w:9:3

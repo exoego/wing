@@ -1018,10 +1018,17 @@ impl<'s> Parser<'s> {
 				continue;
 			}
 			match class_element.kind() {
-				"method_definition" | "inflight_method_definition" => {
-					let mut phase = class_phase;
-					if class_element.kind() == "inflight_method_definition" {
-						phase = Phase::Inflight;
+				"method_definition" | "maybe_inflight_method_definition" | "inflight_method_definition" => {
+					let phase = match class_element.kind() {
+						"inflight_method_definition" => Phase::Inflight,
+						"maybe_inflight_method_definition" => Phase::Independent,
+						_ => class_phase,
+					};
+					if phase == Phase::Independent && class_phase == Phase::Inflight {
+						self.add_error_from_span(
+							"Inflight classes can not contain maybe-inflight methods which can be used in preflight phase",
+							self.node_span(&class_element),
+						);
 					}
 
 					let is_static = class_element.child_by_field_name("static").is_some();

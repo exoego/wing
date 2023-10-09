@@ -201,6 +201,7 @@ module.exports = grammar({
           choice(
             $.initializer,
             $.method_definition,
+            $.maybe_inflight_method_definition,
             $.inflight_method_definition,
             $.class_field
           )
@@ -233,6 +234,7 @@ module.exports = grammar({
           choice(
             $.initializer,
             $.method_definition,
+            $.maybe_inflight_method_definition,
             $.inflight_method_definition,
             $.class_field
           )
@@ -532,6 +534,18 @@ module.exports = grammar({
         optional($._return_type),
         choice(field("block", $.block), $._semicolon)
       ),
+
+    maybe_inflight_method_definition: ($) =>
+        seq(
+            optional(field("extern_modifier", $.extern_modifier)),
+            optional(field("access_modifier", $.access_modifier)),
+            optional(field("static", $.static)),
+            field("phase_modifier", $.maybe_inflight_specifier),
+            field("name", $.identifier),
+            field("parameter_list", $.parameter_list),
+            optional($._return_type),
+            choice(field("block", $.block), $._semicolon)
+        ),
 
     async_modifier: ($) => "async",
 

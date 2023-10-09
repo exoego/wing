@@ -383,7 +383,7 @@ impl Class {
 		self
 			.all_methods(include_initializers)
 			.iter()
-			.filter(|m| m.signature.phase == Phase::Inflight)
+			.filter(|m| m.signature.phase == Phase::Inflight || m.signature.phase == Phase::Independent)
 			.map(|f| *f)
 			.collect_vec()
 	}
@@ -410,7 +410,7 @@ impl Class {
 		self
 			.all_methods(include_initializers)
 			.iter()
-			.filter(|f| f.signature.phase != Phase::Inflight)
+			.filter(|f| f.signature.phase == Phase::Preflight || f.signature.phase == Phase::Independent)
 			.map(|f| *f)
 			.collect_vec()
 	}
